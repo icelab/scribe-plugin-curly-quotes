@@ -12,6 +12,8 @@ define([
 
   return function () {
 
+    var IGNORE_CLASS = "scribe-plugin-curly-quotes-ignore";
+
     return function (scribe) {
       /**
        * Run the formatter as you type on the current paragraph.
@@ -86,6 +88,7 @@ define([
 
       // Apply a function on all text nodes in a container, mutating in place
       function mapElements(containerElement, func) {
+        if (containerElement.className.indexOf(IGNORE_CLASS) > -1) return;
         // TODO: This heuristic breaks for elements that contain a mixture of
         // inline and block elements.
         var nestedBlockElements = arrays.toArray(containerElement.children).filter(elementHelpers.isBlockElement);
